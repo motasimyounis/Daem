@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>اختبار الشخصية</title>
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f5f9fa;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .quiz-box {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+    }
+
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .options button:hover,
+    .options button.selected {
+      background-color: #00bcd4;
+      color: white;
+    }
+
+    .next-btn {
+      margin-top: 1.5rem;
+      padding: 0.7rem 2rem;
+      background-color: #2ac98c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+  
+</head>
+<body>
+
+    <div class="quiz-box" id="quizBox">
+    <h2 id="quizTitle">عنوان الاختبار</h2>
+    <p id="quizDescription">وصف بسيط للاختبار</p>
+
+    <div class="question" id="questionContainer">
+        <h3 id="questionText">السؤال هنا...</h3>
+        <div class="options" id="optionsContainer">
+        </div>
+    </div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">التالي</button>
+    </div>
+
+
+
+    <div id="resultBox" style="display:none; margin-top:2rem;">
+    <h3>نسبة الميل لهذه الشخصية:</h3>
+    <div style="background:#eee; border-radius:10px; overflow:hidden; height:30px; max-width:300px; margin:auto;">
+        <div id="progressBar" style="height:100%; width:0%; background:#00bcd4; text-align:center; color:white; line-height:30px;"></div>
+    </div>
+    <p id="resultText" style="margin-top:1rem; font-weight:bold;"></p>
+    </div>
+
+    <a href="index.html"><button class="next-btn">العودة إلى الصفحة الرئيسية</button></a>
+<script>
+
+  // بيانات تجريبية، يمكن جلبها من API
+ const quiz = {
+  title: "اختبار المازوخية",
+  description: "اكتشف إذا كنت تميل إلى المازوخية في سلوكك ومشاعرك",
+  questions: [
+    {
+      text: "هل تستمتع بالشعور بالذنب؟",
+      options: [
+        { text: "دائمًا", score: 3 },
+        { text: "أحيانًا", score: 2 },
+        { text: "نادرًا", score: 1 }
+      ]
+    },
+    {
+      text: "هل تحب أن يوجه إليك النقد اللاذع؟",
+      options: [
+        { text: "نعم", score: 3 },
+        { text: "أحيانًا", score: 2 },
+        { text: "لا", score: 1 }
+      ]
+    },
+    {
+      text: "هل تشعر بالراحة عندما تُعاقب؟",
+      options: [
+        { text: "نعم", score: 3 },
+        { text: "لا", score: 1 },
+        { text: "أعتمد على الحالة", score: 2 }
+      ]
+    }
+  ]
+};
+
+
+  let currentQuestion = 0;
+  const answers = [];
+
+  function renderQuestion() {
+    const q = quiz.questions[currentQuestion];
+    document.getElementById("questionText").textContent = q.text;
+
+    const optionsContainer = document.getElementById("optionsContainer");
+    optionsContainer.innerHTML = "";
+
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement("button");
+      btn.textContent = opt.text;
+      btn.onclick = () => selectOption(idx, btn);
+      optionsContainer.appendChild(btn);
+    });
+
+    document.getElementById("nextBtn").textContent =
+      currentQuestion === quiz.questions.length - 1 ? "إرسال" : "التالي";
+  }
+
+  function selectOption(index, button) {
+    answers[currentQuestion] = index;
+
+    const buttons = document.querySelectorAll("#optionsContainer button");
+    buttons.forEach(btn => btn.classList.remove("selected"));
+    button.classList.add("selected");
+  }
+
+  function nextQuestion() {
+    if (answers[currentQuestion] == null) {
+      alert("يرجى اختيار إجابة قبل المتابعة");
+      return;
+    }
+
+    if (currentQuestion < quiz.questions.length - 1) {
+      currentQuestion++;
+      renderQuestion();
+    } else {
+      submitAnswers();
+    }
+  }
+
+  // إرسال النتائج (لاحقًا يمكن ربطها بـ API)
+  function submitAnswers() {
+  let totalScore = 0;
+  let maxScore = 0;
+
+  quiz.questions.forEach((q, i) => {
+    const selectedIndex = answers[i];
+    const option = q.options[selectedIndex];
+    totalScore += option.score;
+    maxScore += Math.max(...q.options.map(o => o.score));
+  });
+
+  const percent = Math.round((totalScore / maxScore) * 100);
+  document.getElementById("progressBar").style.width = percent + "%";
+  document.getElementById("progressBar").textContent = percent + "%";
+
+  let interpretation = "";
+  if (percent >= 80) interpretation = "تميل بشدة لهذه الشخصية.";
+  else if (percent >= 50) interpretation = "لديك ميول متوسطة لهذه الشخصية.";
+  else interpretation = "لا تميل كثيرًا لهذه الشخصية.";
+
+  document.getElementById("resultText").textContent = interpretation;
+
+  document.getElementById("questionContainer").style.display = "none";
+  document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("resultBox").style.display = "block";
+}
+
+  // عند تحميل الصفحة
+  document.getElementById("quizTitle").textContent = quiz.title;
+  document.getElementById("quizDescription").textContent = quiz.description;
+  renderQuestion();
+</script>
+
+</body>
+</html>

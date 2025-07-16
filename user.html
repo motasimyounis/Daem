@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/user.css" />
+  <title>لوحة المستخدم</title>
+</head>
+<body>
+  <!-- القائمة الجانبية -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo" title="داعم - الدعم النفسي">داعم</div>
+    <nav>
+      <a href="#" data-section="clinic" class="active"><i class="fas fa-clinic-medical"></i><span>الصفحة الرئيسية</span></a>
+      <a href="#" data-section="chat"><i class="fas fa-comments"></i><span>جلسة المحادثة</span></a>
+      <a href="#" data-section="resources"><i class="fas fa-book"></i><span>الموارد النفسية</span></a>
+      <a href="#" data-section="ai-log"><i class="fas fa-book"></i><span>سجلات المزاج</span></a>
+      <a href="#" data-section="ai-suggestions"><i class="fas fa-robot"></i><span>اقتراحات الذكاء الاصطناعي</span></a>
+      <a href="#" data-section="user-data"><i class="fas fa-user-circle"></i><span>بيانات المستخدم</span></a>
+      <a href="#" data-section="analysis"><i class="fas fa-brain"></i><span>تحليل الحالة النفسية</span></a>
+      <a href="#" data-section="support-sessions"><i class="fas fa-headset"></i><span>جلسات الدعم</span></a>
+    </nav>
+    <button class="toggle-btn" id="toggleSidebar" title="طي القائمة">&#9776;</button>
+  </aside>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="main-content">
+
+    <!-- رأس الصفحة -->
+    <header>
+      <div class="profile" id="profileToggle">
+        <span>مرحبا، محمد</span>
+        <img src="https://i.pravatar.cc/150?img=47" alt="صورة الملف الشخصي" />
+        <div class="profile-menu" id="profileMenu">
+          <a href="#" data-section="user-data">الملف الشخصي</a>
+          <a href="#" id="logout">تسجيل الخروج</a>
+        </div>
+      </div>
+    </header>
+
+      <!-- مقدمة العيادة النفسية -->
+  <section class="clinic-intro section active-section" id="clinic">
+    <div class="clinic-content">
+      <h1>مرحبًا بك في عيادة داعم النفسية </h1>
+      <p>نحن هنا للاستماع إليك وتقديم الدعم النفسي برعاية وخصوصية تامة.<br> متى ترغب أن نبدأ جلستك؟</p>
+      <button class="start-session-btn" onclick="goToSession()">ابدأ الجلسة</button>
+    </div>
+  </section>
+
+<section id="chat" class="section">
+  <h2 class="section-header">جلسة المحادثة</h2>
+  <div class="chat-container">
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input">
+      <textarea id="chatInput" placeholder="اكتب رسالتك هنا..."></textarea>
+      <button id="sendBtn" aria-label="إرسال رسالة">إرسال</button>
+    </div>
+  </div>
+</section>
+
+
+
+ 
+    <section id="ai-log" class="section">
+      <h2 class="section-header">سجل المزاج </h2>
+      <div class="ai-log-container" id="aiLogList">
+        <div>جاري تحميل السجل...</div>
+      </div>
+    </section>
+
+
+    <section id="ai-suggestions" class="section">
+      <h2 class="section-header">اقتراحات الذكاء الاصطناعي</h2>
+      <div class="ai-suggestions" id="aiSuggestionsList">
+      </div>
+    </section>
+
+   <!-- الموارد النفسية -->
+    <section id="resources" class="section">
+      <h2 class="section-header">الموارد النفسية</h2>
+      <div class="resources" id="resourcesList">
+       
+      </div>
+    </section>
+
+    <!-- بيانات المستخدم -->
+    <section id="user-data" class="section">
+      <h2 class="section-header">بيانات المستخدم</h2>
+      <div class="user-data" id="userData">
+        <h3>معلومات شخصية</h3>
+        <p><strong>الاسم:</strong> محمد</p>
+        <p><strong>البريد الإلكتروني:</strong> dvf@example.com</p>
+        <p><strong>تاريخ التسجيل:</strong> 2025-06-10</p>
+      </div>
+    </section>
+
+    <!-- تحليل الحالة النفسية -->
+    <section id="analysis" class="section">
+      <h2 class="section-header">تحليل الحالة النفسية</h2>
+      <div class="analysis" id="analysisResult">
+        <h3>ملخص التحليل</h3>
+        <p>تحليل أولي بناءً على سجل المزاج ومحادثاتك يظهر أن حالتك النفسية مستقرة مع بعض التوتر الخفيف في بعض الأيام. ننصح بمواصلة تمارين الاسترخاء والمتابعة مع مختص في حال زادت الأعراض.</p>
+      </div>
+    </section>
+
+
+    <!-- جلسات الدعم -->
+    <section id="support-sessions" class="section">
+      <h2 class="section-header">جلسات الدعم</h2>
+      <div class="support-sessions">
+        <h3>اختر نوع الجلسة</h3>
+        <div class="session-types">
+          <div class="session-type" tabindex="0">
+            <i class="fas fa-comment-dots"></i>
+            <span>جلسة نصية</span>
+          </div>
+          <div class="session-type" tabindex="0">
+            <i class="fas fa-phone-alt"></i>
+            <span>جلسة صوتية</span>
+          </div>
+          <div class="session-type" tabindex="0">
+            <i class="fas fa-video"></i>
+            <span>جلسة مرئية</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- أيقونات فونت أوسوم -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="js/user.js"></script>
+  
+  <script>
+    // جلسات الدعم - تفاعل بسيط
+    document.querySelectorAll('.session-type').forEach(btn => {
+        btn.addEventListener('click', () => {
+        alert(`تم اختيار: ${btn.textContent.trim()}`);
+        });
+    });
+  document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("sidebar");
+  const toggleBtn = document.getElementById("menuToggleBtn");
+  const overlay = document.getElementById("overlay");
+
+  toggleBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+    overlay.classList.remove("active");
+  });
+});
+
+
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  const API_BASE_URL = 'http://127.0.0.1:8000';
+  document.addEventListener("DOMContentLoaded", function () {
+    // ✅ 1. التحقق من التوكن
+    const token = localStorage.getItem('access');
+    if (!token) {
+      window.location.href = 'login.html';  // لم يتم تسجيل الدخول
+      return;
+    }
+
+    // ✅ 2. جلب بيانات المستخدم
+    fetch(`${API_BASE_URL}/me/`, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("انتهت صلاحية الجلسة");
+      }
+      return res.json();
+    })
+    .then(user => {
+      // عرض البيانات
+      document.querySelector('#userData').innerHTML = `
+        <h3>معلومات شخصية</h3>
+        <p><strong>الاسم:</strong> ${user.username}</p>
+        <p><strong>البريد الإلكتروني:</strong> ${user.email}</p>
+        <p><strong>الدور:</strong> ${user.role === 'client' ? 'مستخدم' : 'معالج نفسي'}</p>
+      `;
+      document.querySelector('#profileToggle span').textContent = "مرحبا، " + user.username;
+    })
+    .catch(err => {
+      console.error("فشل في جلب بيانات المستخدم:", err);
+      alert("انتهت صلاحية الجلسة. يرجى تسجيل الدخول مجددًا.");
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      window.location.href = 'login.html';
+    });
+
+    // ✅ 3. تسجيل الخروج
+    const logoutLink = document.getElementById("logout");
+
+    if (logoutLink) {
+      logoutLink.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+          title: 'هل أنت متأكد؟',
+          text: "سيتم تسجيل الخروج من الجلسة الحالية",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'نعم، سجل خروجي',
+          cancelButtonText: 'إلغاء'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+
+            Swal.fire({
+              icon: 'success',
+              title: 'تم تسجيل الخروج',
+              text: 'سيتم تحويلك إلى صفحة تسجيل الدخول...',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true
+            }).then(() => {
+              window.location.href = 'login.html';
+            });
+          }
+        });
+      });
+    }
+  });
+</script>
+
+<script>
+  const token = localStorage.getItem('access');
+
+  fetch(`${API_BASE_URL}suggestions/`, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      throw new Error("فشل في تحميل الاقتراحات");
+    }
+    return res.json();
+  })
+  .then(data => {
+    const listContainer = document.getElementById('aiSuggestionsList');
+    listContainer.innerHTML = ''; // تفريغ الموجود
+
+    if (data.length === 0) {
+      listContainer.innerHTML = `<div class="ai-suggestion">لا توجد اقتراحات حالياً</div>`;
+      return;
+    }
+
+    data.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'ai-suggestion';
+      div.textContent = item.suggestion_text;
+      listContainer.appendChild(div);
+    });
+  })
+  .catch(err => {
+    console.error("خطأ في جلب اقتراحات AI:", err);
+    const listContainer = document.getElementById('aiSuggestionsList');
+    listContainer.innerHTML = `<div class="ai-suggestion error">⚠️ لم نتمكن من تحميل الاقتراحات.</div>`;
+  });
+
+</script>
+
+
+
+<script>
+  fetch(`${API_BASE_URL}/resources/`, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      throw new Error("فشل في تحميل الموارد النفسية");
+    }
+    return res.json();
+  })
+  .then(data => {
+    const resourcesList = document.getElementById('resourcesList');
+    resourcesList.innerHTML = '';
+
+    if (data.length === 0) {
+      resourcesList.innerHTML = `<div class="resource-card">لا توجد موارد حالياً</div>`;
+      return;
+    }
+
+    data.forEach(resource => {
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+      card.tabIndex = 0;
+      card.innerHTML = `
+        <h3>${resource.title}</h3>
+        <p>${resource.description}</p>
+        ${resource.url ? `<a href="${resource.url}" target="_blank">عرض المصدر</a>` : ''}
+      `;
+      resourcesList.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error("خطأ في جلب الموارد:", err);
+    const resourcesList = document.getElementById('resourcesList');
+    resourcesList.innerHTML = `<div class="resource-card error">⚠️ لم نتمكن من تحميل الموارد.</div>`;
+  });
+</script>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const token = localStorage.getItem("access");
+  const listContainer = document.getElementById("aiSuggestionsList");
+
+  fetch(`${API_BASE_URL}/suggestions/`, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    listContainer.innerHTML = "";
+
+    if (data.length === 0) {
+      listContainer.innerHTML = `<div class="ai-suggestion">لا توجد توصيات حالياً.</div>`;
+      return;
+    }
+
+    const sourceMap = {
+      mood: "بناءً على المزاج",
+      chat: "بناءً على المحادثة",
+      manual: "مدخلة يدويًا"
+    };
+
+    data.forEach(item => {
+      const suggestion = document.createElement('div');
+      suggestion.className = 'ai-suggestion';
+      suggestion.innerHTML = `
+        <p><strong>💡 التوصية:</strong> ${item.suggestion_text}</p>
+        <p><strong>🔍 المصدر:</strong> ${sourceMap[item.source_type] || 'غير معروف'}</p>
+        <p><strong>📅 التاريخ:</strong> ${new Date(item.generated_at).toLocaleString('ar-EG')}</p>
+        <hr>
+      `;
+      listContainer.appendChild(suggestion);
+    });
+  })
+  .catch(err => {
+    console.error("⚠️ فشل في تحميل التوصيات:", err);
+    listContainer.innerHTML = `<div class="ai-suggestion error">⚠️ لم نتمكن من تحميل التوصيات.</div>`;
+  });
+});
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const token = localStorage.getItem("access");
+  const aiLogList = document.getElementById("aiLogList");
+
+  fetch(`${API_BASE_URL}/mood-logs/`, {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    aiLogList.innerHTML = "";
+    if (data.length === 0) {
+      aiLogList.innerHTML = "<p>لا توجد سجلات مزاج حالياً.</p>";
+      return;
+    }
+
+    data.forEach(log => {
+      const entry = document.createElement("div");
+      entry.classList.add("mood-log-entry");
+      entry.innerHTML = `
+        <p><strong>🧠 المزاج:</strong> ${log.mood}</p>
+        ${log.notes ? `<p><strong>📝 ملاحظات:</strong> ${log.notes}</p>` : ''}
+        <p><strong>⏱️ التاريخ:</strong> ${new Date(log.created_at).toLocaleString('ar-EG')}</p>
+        <hr>
+      `;
+      aiLogList.appendChild(entry);
+    });
+  })
+  .catch(err => {
+    aiLogList.innerHTML = "<p style='color:red;'>⚠️ فشل في تحميل سجل المزاج</p>";
+    console.error(err);
+  });
+});
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>داعم | منصة دعم نفسي</title>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- Start Header -->
+    <div class="header" id="header">
+      <div class="container">
+        <a href="index.html" class="logo">داعم</a>
+        <ul class="main-nav">
+          <li><a href="index.html">الصفحة الرئيسية</a></li>
+          <li><a href="index.html#about">من نحن</a></li>
+          <li><a href="index.html#features">المميزات</a></li>
+          <li><a href="index.html#tests">الاختبارات النفسية</a></li>
+          <li>
+            <a href="#">المزيد</a>
+            <!-- Start Megamenu -->
+            <div class="mega-menu">
+              <ul class="links">
+                <li>
+                  <a href="more-success.html"><i class="fas fa-comments fa-fw"></i>قصص نجاح</a>
+                </li>
+                <li>
+                  <a href="index.html#team"><i class="fas fa-user fa-fw"></i>فريق داعم</a>
+                </li>
+                <li>
+                  <a href="index.html#faq-container"><i class="fas fa-question-circle"></i> أسئلة شائعة</a>
+                </li>
+              </ul>
+              <ul class="links">
+                <li>
+                  <a href="index.html#pricing"><i class="fas fa-server fa-fw"></i> باقات الاشتراك</a>
+                </li>
+                <li>
+                  <a href="index.html#stats"><i class="far fa-chart-bar fa-fw"></i> إحصاياتنا</a>
+                </li>
+                <li>
+                  <a href="index.html#subscribe"><i class="fas fa-envelope-open-text"></i>اشترك معنا</a>
+                </li>
+              </ul>
+            </div>
+            <!-- End Megamenu -->
+          </li>
+        </ul>
+    <div class="header-buttons">
+     <a href="login.html#loginForm" class="btn login-btn">تسجيل الدخول</a>
+      <a href="login.html#registerForm" class="btn start-btn">ابدأ الآن</a>
+    </div>
+      </div>
+    </div>
+    <!-- End Header -->
+
+<br><br>
+<div class="login" id="login">
+    <div class="container">
+        <img class="avatar" src="imgs/login.png" alt="رمز داعم">
+    <h2>مرحبًا بك في منصة داعم</h2>
+    <hr>
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('login')">تسجيل الدخول</div>
+        <div class="tab" onclick="switchTab('register')">إنشاء حساب</div>
+    </div>
+
+    <form id="loginForm" class="active">
+      <input type="text" id="login-username" placeholder=" اسم المستخدم" required>
+      <input type="password" id="login-password" placeholder="كلمة المرور" required>
+        <button type="submit">دخول</button>
+        <a href=""><div class="note">نسيت كلمة المرور؟</div></a>
+        <h4>أو</h4>
+        <button type="button" class="google-btn">تسجيل الدخول عبر Google <img src="imgs/google-icon.svg"></button>
+    </form>
+
+    <form id="registerForm">
+      <input type="text" id="reg-username" placeholder="اسم المستخدم  " required>
+      <input type="email" id="reg-email" placeholder="البريد الإلكتروني" required>
+      <select id="reg-role" required>
+        <option value="client">مستخدم</option>
+        <option value="therapist">معالج نفسي</option>
+      </select>
+      <input type="password" id="reg-password" placeholder="كلمة المرور" required>
+      <input type="password" id="reg-password2" placeholder="تأكيد كلمة المرور" required>
+        <button type="submit">إنشاء الحساب</button>
+        <h4>أو</h4>
+        <button type="button" class="google-btn">تسجيل الحساب عبر Google <img src="imgs/google-icon.svg"></button>
+    </form>
+    </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function switchTab(tab) {
+      const tabs = document.querySelectorAll('.tab');
+      const forms = document.querySelectorAll('form');
+      tabs.forEach(t => t.classList.remove('active'));
+      forms.forEach(f => f.classList.remove('active'));
+
+      document.querySelector(`.tab:nth-child(${tab === 'login' ? 1 : 2})`).classList.add('active');
+      document.getElementById(`${tab}Form`).classList.add('active');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.location.hash === "#registerForm") {
+        switchTab('register');
+        document.getElementById("registerForm").scrollIntoView({ behavior: "smooth" });
+      } else if (window.location.hash === "#loginForm") {
+        switchTab('login');
+        document.getElementById("loginForm").scrollIntoView({ behavior: "smooth" });
+      }
+
+
+    
+
+    // ✅ هنا يتم تنفيذ الطلب عند الضغط على زر "دخول"
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+
+      fetch('http://127.0.0.1:8000/api/token/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,  // أو "email" حسب إعداداتك
+          password: password
+        })
+      })
+    .then(res => {
+      if (!res.ok) {
+        // نحاول قراءة رسالة الخطأ من الرد لو متوفرة
+        return res.json().then(errData => {
+          // نبحث عن رسالة خطأ محتملة في البيانات
+          const errorMsg = errData.detail || errData.message || "بيانات غير صحيحة";
+          throw new Error(errorMsg);
+        }).catch(() => {
+          // لو فشلنا في قراءة json، نرمي رسالة عامة
+          throw new Error("بيانات غير صحيحة");
+        });
+      }
+      return res.json();
+    })
+
+      .then(data => {
+        console.log("تم تسجيل الدخول بنجاح:", data);
+        // حفظ التوكنات في localStorage
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+        console.log("Access Token:", data.access);
+        // ✅ طلب بيانات المستخدم لمعرفة نوعه (client أو therapist)
+      return fetch('http://127.0.0.1:8000/me/', {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + data.access,
+          'Content-Type': 'application/json',
+        }
+        
+      }).then(res => {
+        if (!res.ok) {
+          throw new Error("فشل في جلب بيانات المستخدم");
+        }
+        return res.json();
+      });
+    })
+    .then(user => {
+      console.log("بيانات المستخدم:", user);
+
+      // رسالة ترحيب حسب الدور
+      Swal.fire({
+        icon: 'success',
+        title: `مرحبًا ${user.username}`,
+        text: `تم تسجيل الدخول بنجاح! جاري تحويلك إلى صفحتك`,
+        timer: 3000,
+        showConfirmButton: false,
+        timerProgressBar: true
+      }).then(() => {
+        // تحويل حسب الدور
+        if (user.role === 'therapist') {
+          window.location.href = 'therapist.html';
+        } else {
+          window.location.href = 'user.html';
+        }
+      });
+    })
+      .catch(err => {
+        console.error("خطأ:", err);
+        alert("خطأ في تسجيل الدخول: " + err.message);
+      });
+    });
+
+
+
+
+
+
+
+const registerForm = document.getElementById('registerForm');
+
+registerForm.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const username = document.getElementById('reg-username').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const password2 = document.getElementById('reg-password2').value;
+  const role = document.getElementById('reg-role').value;
+
+  // التحقق من تطابق كلمتي المرور
+  if (password !== password2) {
+    Swal.fire({
+      icon: 'error',
+      title: 'خطأ',
+      text: '❌ كلمتا المرور غير متطابقتين',
+      timer: 2500,
+      showConfirmButton: false
+    });
+    return;
+  }
+
+  fetch('http://127.0.0.1:8000/users/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, email, password, role })
+  })
+    .then(res => res.json().then(data => ({ status: res.status, body: data })))
+    .then(result => {
+      if (result.status === 201) {
+        Swal.fire({
+          icon: 'success',
+          title: 'تم التسجيل',
+          text: '✅ تم إنشاء الحساب بنجاح، يمكنك تسجيل الدخول الآن',
+          timer: 2000,
+          showConfirmButton: false
+        }).then(() => {
+          switchTab('login');
+        });
+      } else {
+        const errors = result.body.errors || result.body;
+        let errorMsg = '';
+
+        if (errors.email) errorMsg += `📧 البريد الإلكتروني موجود مسبقاَ\n`;
+        if (errors.username) errorMsg += `👤 اسم المستخدم موجود مسبقاً\n`;
+        if (errors.password) errorMsg += `🔑 كلمة المرور: ${errors.password[0]}\n`;
+        if (errors.role) errorMsg += `🛡️ الدور: ${errors.role[0]}\n`;
+
+        if (!errorMsg) errorMsg = result.body.message || '❌ فشل التسجيل. تحقق من البيانات المدخلة.';
+
+        Swal.fire({
+          icon: 'error',
+          title: 'خطأ في التسجيل',
+          text: errorMsg
+        });
+        console.error('تفاصيل الخطأ:', errors);
+      }
+    })
+    .catch(err => {
+      console.error('⚠️ خطأ في الاتصال أو في الخادم:', err);
+      Swal.fire({
+        icon: 'error',
+        title: 'خطأ',
+        text: 'حدث خطأ أثناء إنشاء الحساب. حاول لاحقًا.'
+      });
+    });
+});
+
+
+  });
+  </script>
+
+
+
+
+</body>
+</html>
