@@ -130,7 +130,7 @@
       const username = document.getElementById('login-username').value;
       const password = document.getElementById('login-password').value;
 
-      fetch('http://127.0.0.1:8000/api/token/', {
+      fetch('https://motasim.pythonanywhere.com/api/token/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@
         localStorage.setItem('refresh', data.refresh);
         console.log("Access Token:", data.access);
         // ✅ طلب بيانات المستخدم لمعرفة نوعه (client أو therapist)
-      return fetch('http://127.0.0.1:8000/me/', {
+      return fetch('https://motasim.pythonanywhere.com/me/', {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer ' + data.access,
@@ -231,7 +231,7 @@ registerForm.addEventListener('submit', function (e) {
     return;
   }
 
-  fetch('http://127.0.0.1:8000/users/', {
+  fetch('https://motasim.pythonanywhere.com/users/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, email, password, role })
