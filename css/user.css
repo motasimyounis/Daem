@@ -711,3 +711,237 @@ padding: 20px;
 
 
 
+/* 📱 تحسين تجاوب القائمة الجانبية */
+@media (max-width: 900px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;   /* RTL */
+    height: 100%;
+    width: 260px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+body {
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  background: #f5f7fa;
+  color: #333;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+  width: 260px;
+  background: #2e3a59;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease, transform 0.3s ease-in-out;
+  position: relative;
+}
+.sidebar.collapsed { width: 70px; }
+.sidebar .logo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  user-select: none;
+}
+.sidebar.collapsed .logo { font-size: 20px; padding: 15px 0; }
+.sidebar nav { flex-grow: 1; margin-top: 20px; }
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  text-decoration: none;
+  color: #cfd8f7;
+  font-size: 16px;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.sidebar nav a:hover, .sidebar nav a.active { background: #1a243a; color: #fff; }
+.sidebar.collapsed nav a { justify-content: center; padding: 15px 0; font-size: 0; }
+.sidebar.collapsed nav a span { display: none; }
+.sidebar nav a i {
+  margin-left: 15px;
+  font-size: 20px;
+  min-width: 24px;
+  text-align: center;
+  color: #aab6f9;
+}
+.sidebar.collapsed nav a i { margin-left: 0; }
+.toggle-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: #cfd8f7;
+  font-size: 22px;
+  padding: 15px;
+  user-select: none;
+  outline: none;
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+.toggle-btn:hover { color: #fff; }
+
+/* المحتوى الرئيسي */
+.main-content {
+  flex-grow: 1;
+  padding: 25px 35px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+header .profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+header .profile img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 10px;
+  border: 2px solid #2e3a59;
+  transition: border-color 0.3s ease;
+}
+header .profile:hover img { border-color: #556ee6; }
+header .profile span { font-weight: 600; color: #555; user-select: none; }
+.profile-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  border-radius: 6px;
+  width: 160px;
+  display: none;
+  flex-direction: column;
+  z-index: 10;
+}
+.profile-menu.active { display: flex; }
+.profile-menu a {
+  padding: 12px 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s ease;
+}
+.profile-menu a:last-child { border-bottom: none; }
+.profile-menu a:hover { background: #f5f5f5; }
+
+.section-header {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222;
+  text-align: center;
+}
+
+/* الأقسام */
+.section { display: none; flex-direction: column; flex-grow: 1; }
+.section.active-section { display: flex; }
+
+/* باقي العناصر مثل الشات، الموارد ... (كما هو في ملفك السابق) */
+
+/*============================
+  ✅ تحسين تجاوب السايدبار للجوال
+=============================*/
+@media (max-width: 900px) {
+  body { flex-direction: column; }
+
+  .sidebar {
+    position: fixed !important;
+    top: 0; right: 0;
+    height: 100vh !important;
+    width: 260px !important;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out !important;
+    z-index: 1000 !important;
+    padding: 0 !important;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .toggle-btn { display: none !important; }
+
+  #mobileMenuBtn {
+    position: fixed;
+    top: 15px; right: 15px;
+    z-index: 1100;
+    background: #2e3a59;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+  }
+
+  #overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 900;
+  }
+  #overlay.active { display: block; }
+
+  .main-content { margin-top: 0 !important; padding: 20px 15px !important; }
+
+  .sidebar .logo { display: block !important; }
+  .sidebar nav { display: block !important; margin-top: 10px !important; }
+  .sidebar nav a {
+    justify-content: flex-start !important;
+    padding: 14px 20px !important;
+    font-size: 16px !important;
+  }
+}
+
+}
+
+/* إخفاء زر القائمة على الشاشات الكبيرة */
+#mobileMenuBtn {
+  display: none;
+}
+
+/* إظهاره فقط للجوال (أقل من 900px) */
+@media (max-width: 900px) {
+  #mobileMenuBtn {
+    display: block;
+  }
+}

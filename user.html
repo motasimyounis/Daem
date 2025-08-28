@@ -26,6 +26,9 @@
 
   <!-- المحتوى الرئيسي -->
   <main class="main-content">
+    <!-- زر القائمة للجوال -->
+  <button id="mobileMenuBtn" aria-label="فتح القائمة" title="القائمة">☰</button>
+
 
     <!-- رأس الصفحة -->
     <header>
@@ -141,9 +144,14 @@
         });
     });
   document.addEventListener("DOMContentLoaded", function () {
-  const sidebar = document.getElementById("sidebar");
-  const toggleBtn = document.getElementById("menuToggleBtn");
-  const overlay = document.getElementById("overlay");
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  });
 
   toggleBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
